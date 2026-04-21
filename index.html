@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Doochitos — Portfolio</title>
+
+<!-- ============================================================
+     EDIT TEXT: Search for "EDIT:" comments throughout this file
+     CHANGE COLORS: Edit the CSS variables in :root below
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================================
+     DESIGN TOKENS — Change these to re-skin the entire site
+     ============================================================ */
+  :root {
+    --bg: #0a0a0f;
+    --text: #ffffff;
+    --text-dim: rgba(255, 255, 255, 0.6);
+    --text-faint: rgba(255, 255, 255, 0.35);
+
+    /* Aurora orb colors — change these for a different mood */
+    --orb-1: #6366f1; /* indigo */
+    --orb-2: #ec4899; /* pink */
+    --orb-3: #06b6d4; /* cyan */
+    --orb-4: #8b5cf6; /* violet */
+
+    /* Liquid glass tokens */
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-blur: 24px;
+
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+
+    --max-width: 1200px;
+    --section-pad: 120px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============================================================
+     ANIMATED AURORA BACKGROUND
+     ============================================================ */
+  .aurora {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+    will-change: transform;
+  }
+
+  .orb-1 {
+    width: 600px; height: 600px;
+    background: var(--orb-1);
+    top: -10%; left: -10%;
+    animation: float-1 22s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 500px; height: 500px;
+    background: var(--orb-2);
+    top: 30%; right: -15%;
+    animation: float-2 28s ease-in-out infinite;
+  }
+  .orb-3 {
+    width: 700px; height: 700px;
+    background: var(--orb-3);
+    bottom: -20%; left: 20%;
+    animation: float-3 25s ease-in-out infinite;
+  }
+  .orb-4 {
+    width: 450px; height: 450px;
+    background: var(--orb-4);
+    top: 50%; left: 40%;
+    animation: float-4 30s ease-in-out infinite;
+  }
+
+  @keyframes float-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(200px, 150px) scale(1.15); }
+  }
+  @keyframes float-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-150px, 200px) scale(0.9); }
+  }
+  @keyframes float-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-200px, -150px) scale(1.1); }
+  }
+  @keyframes float-4 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(150px, -100px) scale(0.95); }
+  }
+
+  /* Grain overlay for texture */
+  .aurora::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* ============================================================
+     LIQUID GLASS NAVIGATION
+     ============================================================ */
+  nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow:
+      0 10px 40px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  nav .brand {
+    font-family: var(--font-display);
+    font-size: 18px;
+    padding: 8px 16px;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+
+  nav a:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  nav .divider {
+    width: 1px;
+    height: 20px;
+    background: var(--glass-border);
+    margin: 0 4px;
+  }
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  section {
+    padding: var(--section-pad) 0;
+    position: relative;
+  }
+
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-faint);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--text-faint);
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 120px;
+  }
+
+  .hero h1 {
+    /* EDIT: This is the bold white title */
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(64px, 12vw, 180px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    margin-bottom: 32px;
+    animation: fade-up 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .hero .tagline {
+    font-size: clamp(16px, 1.5vw, 20px);
+    color: var(--text-dim);
+    max-width: 560px;
+    line-height: 1.6;
+    animation: fade-up 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s both;
+  }
+
+  .hero .scroll-hint {
+    margin-top: 80px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-faint);
+    animation: fade-up 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s both, bob 2s ease-in-out infinite 1.5s;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ============================================================
+     ABOUT
+     ============================================================ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about h2 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+  }
+
+  .about p {
+    color: var(--text-dim);
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* ============================================================
+     WORK / PROJECTS
+     ============================================================ */
+  .work h2 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 64px;
+  }
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .project {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .project .meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+    font-size: 12px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .project h3 {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .project p {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .project .arrow {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .project:hover .arrow {
+    opacity: 1;
+    transform: translate(4px, -4px);
+  }
+
+  /* ============================================================
+     SKILLS
+     ============================================================ */
+  .skills h2 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 64px;
+  }
+
+  .skill-groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+
+  .skill-group h4 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-faint);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .skill-group ul {
+    list-style: none;
+  }
+
+  .skill-group li {
+    padding: 14px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .skill-group li:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .skill-group li span {
+    color: var(--text-faint);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================================
+     EDUCATION
+     ============================================================ */
+  .education h2 {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 64px;
+  }
+
+  .edu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .edu-item {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 16px;
+    align-items: center;
+    transition: all 0.4s ease;
+  }
+
+  .edu-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: 72px;
+  }
+
+  .edu-item:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateX(4px);
+  }
+
+  .edu-item h3 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .edu-item .school {
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+
+  .edu-item .edu-meta {
+    text-align: right;
+  }
+
+  .edu-item .edu-year {
+    font-size: 13px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  .edu-item .edu-field {
+    font-size: 12px;
+    color: var(--text-faint);
+    margin-top: 4px;
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .edu-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .edu-item .edu-meta {
+      text-align: left;
+    }
+    .edu-item .edu-field {
+      text-align: left;
+    }
+    .edu-logo {
+      display: none;
+    }
+  }
+
+  /* ============================================================
+     CONTACT
+     ============================================================ */
+  .contact {
+    text-align: center;
+    padding: 160px 0 120px;
+  }
+
+  .contact h2 {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 9vw, 140px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 48px;
+  }
+
+  .contact h2 em {
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+
+  .contact-links a {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-links a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+  }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer {
+    padding: 32px 0;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 768px) {
+    :root { --section-pad: 80px; }
+
+    nav {
+      padding: 8px 12px;
+      gap: 0;
+    }
+    nav .brand { font-size: 16px; padding: 6px 12px; }
+    nav a { font-size: 12px; padding: 6px 10px; }
+    nav .divider { display: none; }
+
+    .about-grid,
+    .projects,
+    .skill-groups {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated background -->
+<div class="aurora">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+</div>
+
+<!-- ============================================================
+     LIQUID GLASS NAVIGATION
+     EDIT: Change brand name and links here
+     ============================================================ -->
+<nav>
+  <span class="brand">Gabin</span>
+  <span class="divider"></span>
+  <a href="#about">About</a>
+  <a href="#education">Education</a>
+  <a href="#work">Work</a>
+  <a href="#skills">Skills</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main class="container">
+
+  <!-- ============================================================
+       HERO — bold white title
+       EDIT: Change h1 and tagline below
+       ============================================================ -->
+  <section class="hero">
+    <h1>Gabin DOUCHET<br><em>Precision built. Strategically driven.</em></h1>
+    <p class="tagline">
+      Mechanical engineer turned strategist. I build bridges between technical rigor and business impact — from R&D floors to consulting rooms.
+    </p>
+    <div class="scroll-hint">Scroll to explore ↓</div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT
+       EDIT: Replace the bio paragraphs
+       ============================================================ -->
+  <section class="about" id="about">
+    <div class="section-label">About</div>
+    <div class="about-grid">
+      <h2>Engineer first.<br><em>Strategist by choice.</em></h2>
+      <div>
+        <p>
+         I graduated in Mechanical Engineering from Concordia University, where I learned that every technical solution starts with a human need. That belief has shaped everything since — from leading a student team to build a single-seater vehicle, to a 6-month R&D internship at Europe's leading aerial work platforms manufacturer.
+        </p>
+        <p>
+          An exchange semester at the National University of Singapore pushed me further, showing me that cultural fluency is as strategic as technical skill. It sparked a deeper curiosity for lean management, business efficiency, and the systems that turn ideas into execution.
+        </p>
+        <p>
+          I'm now pursuing a Master in Management at ESSEC Business School to formalize that intersection — and build a career at the crossroads of engineering precision and business strategy, with a focus on consulting and operations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EDUCATION
+       EDIT: Add/remove .edu-item blocks
+       ============================================================ -->
+  <section class="education" id="education">
+    <div class="section-label">Education</div>
+    <h2>Where it started.</h2>
+
+    <div class="edu-list">
+
+      <div class="edu-item">
+        <div>
+          <h3>Master in Management</h3>
+          <div class="school">ESSEC Business School, Paris, France</div>
+        </div>
+        <div class="edu-meta">
+          <div class="edu-year">2026– 2028</div>
+          <div class="edu-field">Strategy &amp; Entrepreneurship</div>
+        </div>
+        <div class="edu-logo">
+          <img src="images/essec.png" alt="ESSEC" height="52">
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div>
+          <h3>Bachelor of Mechanical Engineering</h3>
+          <div class="school">Concordia Univeristy, Montréal, Canada</div>
+        </div>
+        <div class="edu-meta">
+          <div class="edu-year">2021 – 2026</div>
+          <div class="edu-field">Mechanical Engineering</div>
+        </div>
+        <div class="edu-logo">
+          <img src="images/concordia.png" alt="Concordia" height="30">
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div>
+          <h3>Exchange Program, Mechanical Engineering</h3>
+          <div class="school">National University of Singapore, Singapore</div>
+        </div>
+        <div class="edu-meta">
+          <div class="edu-year">2024</div>
+          <div class="edu-field">Mechanical Engineering</div>
+        </div>
+        <div class="edu-logo">
+          <img src="images/nus.png" alt="NUS" height="52">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WORK / PROJECTS
+       EDIT: Each .project is one card. Copy/paste to add more.
+       ============================================================ -->
+  <section class="work" id="work">
+    <div class="section-label">Selected Work</div>
+    <h2>Recent projects.</h2>
+
+    <div class="projects">
+
+      <div class="project">
+        <div class="meta">
+          <span>Project 01</span>
+          <span>2025</span>
+        </div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+        <h3>Project Title One</h3>
+        <p>Short description of what this project is, the problem it solved, and your role in it. Keep it concise — one or two sentences.</p>
+      </div>
+
+      <div class="project">
+        <div class="meta">
+          <span>Project 02</span>
+          <span>2025</span>
+        </div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+        <h3>Project Title Two</h3>
+        <p>Short description of what this project is, the problem it solved, and your role in it.</p>
+      </div>
+
+      <div class="project">
+        <div class="meta">
+          <span>Project 03</span>
+          <span>2024</span>
+        </div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+        <h3>Project Title Three</h3>
+        <p>Short description of what this project is, the problem it solved, and your role in it.</p>
+      </div>
+
+      <div class="project">
+        <div class="meta">
+          <span>Project 04</span>
+          <span>2024</span>
+        </div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 17L17 7M17 7H7M17 7V17"/>
+        </svg>
+        <h3>Project Title Four</h3>
+        <p>Short description of what this project is, the problem it solved, and your role in it.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SKILLS
+       EDIT: Add/remove <li> items in each group
+       ============================================================ -->
+  <section class="skills" id="skills">
+    <div class="section-label">Capabilities</div>
+    <h2>What I bring.</h2>
+
+    <div class="skill-groups">
+
+      <div class="skill-group">
+        <h4>Engineering</h4>
+        <ul>
+          <li>CAD / SolidWorks <span>Expert</span></li>
+          <li>Manufacturing <span>Advanced</span></li>
+          <li>Systems Design <span>Advanced</span></li>
+          <li>Prototyping <span>Expert</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h4>Management</h4>
+        <ul>
+          <li>Strategy <span>Advanced</span></li>
+          <li>Operations <span>Advanced</span></li>
+          <li>Project Mgmt <span>Expert</span></li>
+          <li>Stakeholder Relations <span>Advanced</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h4>Tools</h4>
+        <ul>
+          <li>Notion <span>Daily</span></li>
+          <li>Figma <span>Comfortable</span></li>
+          <li>Excel / Sheets <span>Expert</span></li>
+          <li>Python <span>Working</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       EDIT: Update email and social links
+       ============================================================ -->
+  <section class="contact" id="contact">
+    <h2>Let's <em>build</em><br>something.</h2>
+    <p style="color: var(--text-dim); max-width: 480px; margin: 0 auto; font-size: 17px;">
+      Open to interesting projects, collaborations, and conversations.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:gabin.douchet@essec.edu">Email</a>
+      <a href="https://www.linkedin.com/in/gabindouchet/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    © 2026 Doochitos · Built with care
+  </div>
+</footer>
+
+<script>
+  // Smooth subtle parallax on orbs based on mouse position
+  const orbs = document.querySelectorAll('.orb');
+  let mouseX = 0, mouseY = 0;
+  let currentX = 0, currentY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  function animate() {
+    currentX += (mouseX - currentX) * 0.05;
+    currentY += (mouseY - currentY) * 0.05;
+    orbs.forEach((orb, i) => {
+      const depth = (i + 1) * 8;
+      orb.style.translate = `${currentX * depth}px ${currentY * depth}px`;
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+
+</body>
+</html>
