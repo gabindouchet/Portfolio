@@ -11,16 +11,16 @@
 
 <style>
   :root {
-    --bg: #000000;
-    --text: #ffffff;
-    --text-dim: rgba(255, 255, 255, 0.6);
-    --text-faint: rgba(255, 255, 255, 0.35);
+    --bg: #ffffff;
+    --text: #000000;
+    --text-dim: rgba(0, 0, 0, 0.55);
+    --text-faint: rgba(0, 0, 0, 0.35);
     --orb-1: #6366f1;
     --orb-2: #ec4899;
     --orb-3: #06b6d4;
     --orb-4: #8b5cf6;
-    --glass-bg: rgba(255, 255, 255, 0.06);
-    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-bg: rgba(0, 0, 0, 0.04);
+    --glass-border: rgba(0, 0, 0, 0.12);
     --glass-blur: 24px;
     --font-display: 'Instrument Serif', Georgia, serif;
     --font-body: 'Inter', system-ui, sans-serif;
@@ -59,11 +59,11 @@
     -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%);
     border:1px solid var(--glass-border);border-radius:100px;
     padding:10px 16px;display:flex;align-items:center;gap:4px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.15);
+    box-shadow:0 10px 40px rgba(0,0,0,0.1),inset 0 1px 0 rgba(0,0,0,0.05);
   }
   nav .brand { font-family:var(--font-display);font-size:18px;padding:8px 16px;color:var(--text);letter-spacing:0.02em; }
   nav a { color:var(--text-dim);text-decoration:none;font-size:13px;font-weight:500;padding:8px 16px;border-radius:100px;transition:all 0.3s ease;letter-spacing:0.02em; }
-  nav a:hover { color:var(--text);background:rgba(255,255,255,0.08); }
+  nav a:hover { color:var(--text);background:rgba(0,0,0,0.06); }
   nav .divider { width:1px;height:20px;background:var(--glass-border);margin:0 4px; }
 
   /* ── LAYOUT ── */
@@ -117,7 +117,7 @@
     border:1px solid var(--glass-border);border-radius:24px;padding:40px;
     transition:all 0.4s ease;cursor:pointer;position:relative;overflow:hidden;
   }
-  .project:hover { transform:translateY(-4px);border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.09); }
+  .project:hover { transform:translateY(-4px);border-color:rgba(0,0,0,0.15);background:rgba(0,0,0,0.04); }
   .project .meta { display:flex;justify-content:space-between;margin-bottom:80px;font-size:12px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.15em; }
   .project h3 { font-family:var(--font-display);font-size:32px;font-weight:400;line-height:1.2;margin-bottom:12px; }
   .project p { color:var(--text-dim);font-size:15px;line-height:1.6; }
@@ -129,8 +129,8 @@
   .skill-groups { display:grid;grid-template-columns:repeat(3,1fr);gap:48px; }
   .skill-group h4 { font-size:13px;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-faint);margin-bottom:20px;font-weight:500; }
   .skill-group ul { list-style:none; }
-  .skill-group li { padding:14px 0;border-top:1px solid rgba(255,255,255,0.08);color:var(--text);font-size:16px;display:flex;justify-content:space-between;align-items:center; }
-  .skill-group li:last-child { border-bottom:1px solid rgba(255,255,255,0.08); }
+  .skill-group li { padding:14px 0;border-top:1px solid rgba(0,0,0,0.1);color:var(--text);font-size:16px;display:flex;justify-content:space-between;align-items:center; }
+  .skill-group li:last-child { border-bottom:1px solid rgba(0,0,0,0.1); }
   .skill-group li span { color:var(--text-faint);font-size:12px;letter-spacing:0.05em; }
 
   /* ── EDUCATION ── */
@@ -143,8 +143,9 @@
     display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;
     transition:all 0.4s ease;
   }
-  .edu-logo { display:flex;align-items:center;justify-content:center;padding-left:24px;border-left:1px solid rgba(255,255,255,0.08);min-width:72px; }
-  .edu-item:hover { background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.25);transform:translateX(4px); }
+  .edu-logo { display:flex;align-items:center;justify-content:center;padding-left:24px;border-left:1px solid rgba(0,0,0,0.1);min-width:72px; }
+  .edu-logo img { filter:grayscale(1) brightness(0.5); }
+  .edu-item:hover { background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.15);transform:translateX(4px); }
   .edu-item h3 { font-family:var(--font-display);font-size:26px;font-weight:400;line-height:1.2;margin-bottom:6px; }
   .edu-item .school { color:var(--text-dim);font-size:15px; }
   .edu-item .edu-meta { text-align:right; }
@@ -163,9 +164,9 @@
     border-radius:100px;text-decoration:none;font-size:14px;font-weight:500;
     transition:all 0.3s ease;letter-spacing:0.02em;
   }
-  .contact-links a:hover { background:rgba(255,255,255,0.12);transform:translateY(-2px); }
+  .contact-links a:hover { background:rgba(0,0,0,0.06);transform:translateY(-2px); }
 
-  footer { padding:32px 0;text-align:center;color:var(--text-faint);font-size:12px;border-top:1px solid rgba(255,255,255,0.05); }
+  footer { padding:32px 0;text-align:center;color:var(--text-faint);font-size:12px;border-top:1px solid rgba(0,0,0,0.1); }
 
   @media (max-width:768px) {
     :root { --section-pad:80px; }
@@ -322,7 +323,7 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   /* ════════════════════════════════════════════
-     MAGENTA TRAIL CANVAS
+     CANVAS — ORB + METEORITES
   ════════════════════════════════════════════ */
   const canvas = document.getElementById('trail-canvas');
   const ctx    = canvas.getContext('2d');
@@ -334,44 +335,93 @@
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // Trail config
-  const TRAIL_BLOB_R  = 180;   // radius of each glow blob
-  const TRAIL_FADE    = 0.045; // how fast old paint fades per frame
-  const TRAIL_ALPHA   = 0.22;  // peak opacity of each blob
+  // ── Cursor orb
+  const ORB_R       = 120;
+  const ORB_ALPHA   = 0.38;
+  const ORB_HISTORY = 18;
 
-  let tmx = -9999, tmy = -9999; // raw mouse
-  let tlx = -9999, tly = -9999; // lerped mouse (fast)
+  let tmx = -9999, tmy = -9999;
+  let tlx = -9999, tly = -9999;
+  const orbHistory = [];
 
   document.addEventListener('mousemove', e => { tmx = e.clientX; tmy = e.clientY; });
-  document.addEventListener('mouseleave', () => { tmx = -9999; tmy = -9999; });
+  document.addEventListener('mouseleave', () => { tmx = -9999; tmy = -9999; orbHistory.length = 0; });
 
-  function paintTrail() {
-    // Lerp toward real mouse position quickly
-    if (tlx < -999) { tlx = tmx; tly = tmy; }
-    tlx += (tmx - tlx) * 0.12;
-    tly += (tmy - tly) * 0.12;
+  // ── Meteorites
+  const METEOR_R     = 40;   // same style as orb but smaller
+  const METEOR_ALPHA = 0.38;
+  const METEOR_LEN   = 55;   // trail length
 
-    // Fade previous frame
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = `rgba(0,0,0,${TRAIL_FADE})`;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const meteors = [];
 
-    // Paint magenta glow at lerped position
-    if (tlx > -999 && tmx > -999) {
-      ctx.globalCompositeOperation = 'screen';
-      const grad = ctx.createRadialGradient(tlx, tly, 0, tlx, tly, TRAIL_BLOB_R);
-      grad.addColorStop(0,   `rgba(210, 0, 120, ${TRAIL_ALPHA})`);
-      grad.addColorStop(0.35,`rgba(180, 0, 100, ${TRAIL_ALPHA * 0.55})`);
-      grad.addColorStop(1,   `rgba(100, 0,  60, 0)`);
-      ctx.beginPath();
-      ctx.arc(tlx, tly, TRAIL_BLOB_R, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
+  function spawnMeteor() {
+    const angle = Math.PI / 4;
+    const speed = canvas.width / (4 * 60 * Math.cos(angle));
+    const fromTop = Math.random() < 0.5;
+    meteors.push({
+      x: fromTop ? Math.random() * canvas.width * 0.5 : -METEOR_R,
+      y: fromTop ? -METEOR_R : Math.random() * canvas.height * 0.5,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      history: []
+    });
+    setTimeout(spawnMeteor, 3500 + Math.random() * 5000);
+  }
+  setTimeout(spawnMeteor, 1500 + Math.random() * 2000);
+
+  function drawGlob(x, y, r, alpha) {
+    const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
+    grad.addColorStop(0,   `rgba(210, 0, 120, ${alpha})`);
+    grad.addColorStop(0.4, `rgba(180, 0, 100, ${alpha * 0.5})`);
+    grad.addColorStop(1,   `rgba(120, 0,  70, 0)`);
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+  }
+
+  function paintFrame() {
+    // ── Update cursor orb
+    if (tmx > -999) {
+      if (tlx < -999) { tlx = tmx; tly = tmy; }
+      tlx += (tmx - tlx) * 0.14;
+      tly += (tmy - tly) * 0.14;
+      orbHistory.push({ x: tlx, y: tly });
+      if (orbHistory.length > ORB_HISTORY) orbHistory.shift();
     }
 
-    requestAnimationFrame(paintTrail);
+    // ── Update meteorites
+    for (let i = meteors.length - 1; i >= 0; i--) {
+      const m = meteors[i];
+      m.x += m.vx;
+      m.y += m.vy;
+      m.history.push({ x: m.x, y: m.y });
+      if (m.history.length > METEOR_LEN) m.history.shift();
+      if (m.x > canvas.width + 200 && m.history.length === 0) meteors.splice(i, 1);
+      if (m.x > canvas.width + 200) m.history.shift(); // drain once off-screen
+    }
+
+    // ── Draw
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'source-over';
+
+    // Cursor orb
+    for (let i = 0; i < orbHistory.length; i++) {
+      const t = (i + 1) / orbHistory.length;
+      drawGlob(orbHistory[i].x, orbHistory[i].y, ORB_R * (0.45 + 0.55 * t), ORB_ALPHA * t * t);
+    }
+
+    // Meteorites — exact same rendering as cursor orb, just smaller
+    for (const m of meteors) {
+      for (let i = 0; i < m.history.length; i++) {
+        const t = (i + 1) / m.history.length;
+        drawGlob(m.history[i].x, m.history[i].y, METEOR_R * (0.45 + 0.55 * t), METEOR_ALPHA * t * t);
+      }
+    }
+
+    requestAnimationFrame(paintFrame);
   }
-  paintTrail();
+  paintFrame();
 
 
 
