@@ -353,6 +353,7 @@
   const METEOR_LEN   = 55;   // trail length
 
   const meteors = [];
+  let nextSpawnAt = performance.now() + 1500 + Math.random() * 2000;
 
   function spawnMeteor() {
     const angle = Math.PI / 4;
@@ -365,9 +366,8 @@
       vy: Math.sin(angle) * speed,
       history: []
     });
-    setTimeout(spawnMeteor, 3500 + Math.random() * 5000);
+    nextSpawnAt = performance.now() + 3500 + Math.random() * 5000;
   }
-  setTimeout(spawnMeteor, 1500 + Math.random() * 2000);
 
   function drawGlob(x, y, r, alpha) {
     const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
@@ -389,6 +389,9 @@
       orbHistory.push({ x: tlx, y: tly });
       if (orbHistory.length > ORB_HISTORY) orbHistory.shift();
     }
+
+    // ── Spawn meteorites (rAF-driven so it pauses when tab is hidden)
+    if (performance.now() >= nextSpawnAt) spawnMeteor();
 
     // ── Update meteorites
     for (let i = meteors.length - 1; i >= 0; i--) {
