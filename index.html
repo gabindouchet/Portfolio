@@ -211,9 +211,9 @@
     <div class="about-grid">
       <h2 class="blur-text">Engineer first.<br><em>Strategist by choice.</em></h2>
       <div>
-        <p>I graduated in Mechanical Engineering from Concordia University, where I learned that every technical solution starts with a human need. That belief has shaped everything since — from leading a student team to build a single-seater vehicle, to a 6-month R&D internship at Europe's leading aerial work platforms manufacturer.</p>
+        <p>I graduated in Mechanical Engineering from Concordia University, where I learned that every technical solution starts with a human need. That belief has shaped everything since, from participating in a student team to build a single-seater vehicle, to a 6-month R&D internship at Europe's leading aerial work platforms manufacturer.</p>
         <p>An exchange semester at the National University of Singapore pushed me further, showing me that cultural fluency is as strategic as technical skill. It sparked a deeper curiosity for lean management, business efficiency, and the systems that turn ideas into execution.</p>
-        <p>I'm now pursuing a Master in Management at ESSEC Business School to formalize that intersection — and build a career at the crossroads of engineering precision and business strategy, with a focus on consulting and operations.</p>
+        <p>I'm now pursuing a Master in Management at ESSEC Business School to formalize that intersection and build a career at the crossroads of engineering precision and business strategy, with a focus on consulting and operations.</p>
       </div>
     </div>
   </section>
@@ -242,18 +242,18 @@
 
   <section class="work" id="work">
     <div class="section-label">Selected Work</div>
-    <h2 class="blur-text">Recent projects.</h2>
+    <h2 class="blur-text">Experience & Recent projects.</h2>
     <div class="projects">
       <div class="project">
-        <div class="meta"><span>Project 01</span><span>2025</span></div>
+        <div class="meta"><span>Haulotte</span><span>2025</span></div>
         <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        <h3>Project Title One</h3>
-        <p>Short description of what this project is, the problem it solved, and your role in it.</p>
+        <h3>R&D Engineer</h3>
+        <p>I had the opportunity to work as an R&D engineer during a 6 months internship in Europe's leading company in MEWPs manufacturing.</p>
       </div>
       <div class="project">
-        <div class="meta"><span>Project 02</span><span>2025</span></div>
+        <div class="meta"><span>Capstone</span><span>2025</span></div>
         <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        <h3>Project Title Two</h3>
+        <h3>Head of Design - CAD</h3>
         <p>Short description of what this project is, the problem it solved, and your role in it.</p>
       </div>
       <div class="project">
@@ -390,8 +390,8 @@
       if (orbHistory.length > ORB_HISTORY) orbHistory.shift();
     }
 
-    // ── Spawn meteorites (rAF-driven so it pauses when tab is hidden)
-    if (performance.now() >= nextSpawnAt) spawnMeteor();
+    // ── Spawn meteorites (skip while hidden — Chrome still fires rAF at ~1fps in background)
+    if (!document.hidden && performance.now() >= nextSpawnAt) spawnMeteor();
 
     // ── Update meteorites
     for (let i = meteors.length - 1; i >= 0; i--) {
@@ -424,6 +424,10 @@
 
     requestAnimationFrame(paintFrame);
   }
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) nextSpawnAt = performance.now() + 1500 + Math.random() * 2000;
+  });
+
   paintFrame();
 
 
