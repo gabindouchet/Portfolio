@@ -152,6 +152,23 @@
   .edu-item .edu-year { font-size:13px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.12em;white-space:nowrap; }
   .edu-item .edu-field { font-size:12px;color:var(--text-faint);margin-top:4px;text-align:right; }
 
+  /* ── ACTIVITIES ── */
+  .activities h2 { font-family:var(--font-display);font-size:clamp(40px,5vw,64px);line-height:1.05;letter-spacing:-0.02em;font-weight:400;margin-bottom:64px; }
+  .activity-list { display:flex;flex-direction:column;gap:24px; }
+  .activity-item {
+    background:var(--glass-bg);backdrop-filter:blur(var(--glass-blur)) saturate(180%);
+    -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(180%);
+    border:1px solid var(--glass-border);border-radius:20px;padding:36px 40px;
+    display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;
+    transition:all 0.4s ease;
+  }
+  .activity-item:hover { background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.15);transform:translateX(4px); }
+  .activity-item h3 { font-family:var(--font-display);font-size:26px;font-weight:400;line-height:1.2;margin-bottom:6px; }
+  .activity-item .org { color:var(--text-dim);font-size:15px; }
+  .activity-item .desc { color:var(--text-dim);font-size:14px;margin-top:10px;line-height:1.5; }
+  .activity-item .activity-meta { text-align:right; }
+  .activity-item .activity-year { font-size:13px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.12em;white-space:nowrap; }
+
   /* ── CONTACT ── */
   .contact { text-align:center;padding:160px 0 120px; }
   .contact h2 { font-family:var(--font-display);font-size:clamp(56px,9vw,140px);line-height:1;letter-spacing:-0.03em;font-weight:400;margin-bottom:48px; }
@@ -179,6 +196,8 @@
     .edu-item .edu-meta { text-align:left; }
     .edu-item .edu-field { text-align:left; }
     .edu-logo { display:none; }
+    .activity-item { grid-template-columns:1fr;gap:8px; }
+    .activity-item .activity-meta { text-align:left; }
   }
 </style>
 </head>
@@ -193,6 +212,7 @@
   <a href="#education">Education</a>
   <a href="#work">Work</a>
   <a href="#skills">Skills</a>
+  <a href="#activities">Activities</a>
   <a href="#contact">Contact</a>
 </nav>
 
@@ -257,16 +277,28 @@
         <p>Short description of what this project is, the problem it solved, and your role in it.</p>
       </div>
       <div class="project">
-        <div class="meta"><span>Project 03</span><span>2024</span></div>
+        <div class="meta"><span>Mobile · iOS</span><span>2026</span></div>
         <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        <h3>Project Title Three</h3>
-        <p>Short description of what this project is, the problem it solved, and your role in it.</p>
+        <h3>Anew</h3>
+        <p>A habit-tracking iOS app built in Swift with Codex. A streak-based system that keeps momentum visible and makes consistency the whole point.</p>
       </div>
       <div class="project">
-        <div class="meta"><span>Project 04</span><span>2024</span></div>
+        <div class="meta"><span>Automation</span><span>2026</span></div>
         <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        <h3>Project Title Four</h3>
-        <p>Short description of what this project is, the problem it solved, and your role in it.</p>
+        <h3>Job-Search Automation</h3>
+        <p>A Notion workspace for my 2027 job search, run by Claude Projects and scheduled agents: daily offer discovery, weekly KPI reports, and pre-interview company briefings, written straight back into Notion.</p>
+      </div>
+      <div class="project">
+        <div class="meta"><span>Data Analytics</span><span>2026</span></div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        <h3>F1 Predict</h3>
+        <p>An academic project predicting Formula 1 lap times from tyre compound using ridge regression, reaching an RMSE of 2.35s and an R² of 0.946.</p>
+      </div>
+      <div class="project">
+        <div class="meta"><span>Co-founder</span><span>2022</span></div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        <h3>BOOMER</h3>
+        <p>Co-founded a small digital-services venture, designing and delivering a website and logo for an SME client to help them attract new customers.</p>
       </div>
     </div>
   </section>
@@ -301,6 +333,42 @@
           <li>Excel / Sheets <span>Expert</span></li>
           <li>Python <span>Working</span></li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="activities" id="activities">
+    <div class="section-label">Activities</div>
+    <h2 class="blur-text">Outside the classroom.</h2>
+    <div class="activity-list">
+      <div class="activity-item">
+        <div>
+          <h3>Mechanical &amp; Aerodynamics Specialist</h3>
+          <div class="org">Concordia Formula SAE, "Formula Student" team</div>
+          <div class="desc">Developed a new pedal box, reducing its weight by 30%, and built a test bench to measure airflow through the radiator.</div>
+        </div>
+        <div class="activity-meta">
+          <div class="activity-year">2022 – 2023</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div>
+          <h3>Active Member</h3>
+          <div class="org">Concordia Running Club</div>
+        </div>
+        <div class="activity-meta">
+          <div class="activity-year">2025 – 2026</div>
+        </div>
+      </div>
+      <div class="activity-item">
+        <div>
+          <h3>Right Back, First Team</h3>
+          <div class="org">FCL Hockey Club</div>
+          <div class="desc">National division, "elite" championship.</div>
+        </div>
+        <div class="activity-meta">
+          <div class="activity-year">2014 – 2021</div>
+        </div>
       </div>
     </div>
   </section>
